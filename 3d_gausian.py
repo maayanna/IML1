@@ -132,3 +132,11 @@ def distribution_gaussian():
     plt.show()
 
 # distribution_gaussian()
+
+
+def task16_a():
+    """
+    Task 16a
+    :return:
+    """
+
