@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from scipy.linalg import qr
-import math
 
 mean = [0, 0, 0]
 cov = np.eye(3)
@@ -167,8 +166,8 @@ def task16_b():
 
     for epsilon in EPSILON:
 
-        x = [i for i in range(1, 10010)]
-        y_H = [min(2*math.exp((-2*j*(epsilon**2))), 1) for j in x]
+        x = [i for i in range(1, 1001)]
+        y_H = [min(2*np.exp((-2*j*(epsilon**2))), 1) for j in x]
         y_C = [min((1/(4*k*(epsilon**2))), 1) for k in x]
 
         plt.plot(x, y_H)
@@ -180,4 +179,26 @@ def task16_b():
         # plt.savefig("Q16B" + str(epsilon) + ".pdf")
         plt.show()
 
-task16_b()
+# task16_b()
+
+def task16_c():
+    """
+    task 16c
+    :return:
+    """
+    # x = [i for i in range(1, 1001)]
+    #
+    # all_y = list()
+    # for i in range(100000):
+    #     y = [sum(data[i, :val_x])/val_x for val_x in x]
+    #     all_y.append(y)
+
+    for epsilon in EPSILON:
+
+        x = [i for i in range(1, 1001)]
+
+        all_y = list()
+        for i in range(100000):
+            y = [sum(data[i, :val_x]) / val_x for val_x in x]
+            all_y.append(y)
+
