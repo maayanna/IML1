@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from scipy.linalg import qr
+import math
 
 mean = [0, 0, 0]
 cov = np.eye(3)
@@ -155,7 +156,7 @@ def task16_a():
     # plt.savefig("Q16A.pdf")
     plt.show()
 
-task16_a()
+# task16_a()
 
 
 def task16_b():
@@ -164,3 +165,19 @@ def task16_b():
     :return:
     """
 
+    for epsilon in EPSILON:
+
+        x = [i for i in range(1, 10010)]
+        y_H = [min(2*math.exp((-2*j*(epsilon**2))), 1) for j in x]
+        y_C = [min((1/(4*k*(epsilon**2))), 1) for k in x]
+
+        plt.plot(x, y_H)
+        plt.plot(x, y_C)
+        plt.title("Q16B : Epsilon = " + str(epsilon))
+        plt.xlabel("Number of iterations")
+        plt.ylabel("Upper bound")
+        plt.legend(["H", "C"])
+        # plt.savefig("Q16B" + str(epsilon) + ".pdf")
+        plt.show()
+
+task16_b()
