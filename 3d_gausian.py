@@ -9,6 +9,7 @@ x_y_z = np.random.multivariate_normal(mean, cov, 50000).T
 S_MATRIX = [[0.1, 0, 0], [0, 0.5, 0], [0, 0, 2]]
 data = np.random.binomial(1, 0.25, (100000, 1000))
 EPSILON = [0.5, 0.25, 0.1, 0.01, 0.001]
+p = 0.25
 
 
 def get_orthogonal_matrix(dim):
@@ -186,19 +187,22 @@ def task16_c():
     task 16c
     :return:
     """
-    # x = [i for i in range(1, 1001)]
-    #
-    # all_y = list()
-    # for i in range(100000):
-    #     y = [sum(data[i, :val_x])/val_x for val_x in x]
-    #     all_y.append(y)
 
     for epsilon in EPSILON:
 
         x = [i for i in range(1, 1001)]
+        y_H = [min(2*np.exp((-2*j*(epsilon**2))), 1) for j in x]
+        y_C = [min((1/(4*k*(epsilon**2))), 1) for k in x]
 
-        all_y = list()
-        for i in range(100000):
-            y = [sum(data[i, :val_x]) / val_x for val_x in x]
-            all_y.append(y)
+        plt.plot(x, y_H)
+        plt.plot(x, y_C)
+        my_list = np.cumsum(data, axis = 1) / x
+        plt.plot(np.sum((abs((my_list - p))) >= epsilon, axis = 0) / 100000)
+        plt.title("Q16C : Epsilon = " + str(epsilon))
+        plt.xlabel("Number of iterations")
+        plt.ylabel("Upper bound")
+        plt.legend(["H", "C"])
+        # plt.savefig("Q16C" + str(epsilon) + ".pdf")
+        plt.show()
 
+# task16_c()
