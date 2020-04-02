@@ -7,6 +7,8 @@ mean = [0, 0, 0]
 cov = np.eye(3)
 x_y_z = np.random.multivariate_normal(mean, cov, 50000).T
 S_MATRIX = [[0.1, 0, 0], [0, 0.5, 0], [0, 0, 2]]
+data = np.random.binomial(1, 0.25, (100000, 1000))
+EPSILON = [0.5, 0.25, 0.1, 0.01, 0.001]
 
 
 def get_orthogonal_matrix(dim):
@@ -137,6 +139,28 @@ def distribution_gaussian():
 def task16_a():
     """
     Task 16a
+    :return:
+    """
+
+    for i in range(5):
+
+        x = [j for j in range(1, 1001)]
+        y = [sum(data[i, :val_x])/ val_x for val_x in x]
+        plt.plot(x, y)
+
+    plt.title("Q16A : Estimate average as a function of m")
+    plt.xlabel("Number of iterations")
+    plt.ylabel("Upper bound")
+    plt.legend(["1st sequence", "2nd sequence", "3rd sequence", "4th sequence", "5th sequence"])
+    # plt.savefig("Q16A.pdf")
+    plt.show()
+
+task16_a()
+
+
+def task16_b():
+    """
+    task 16b
     :return:
     """
 
